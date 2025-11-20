@@ -13,8 +13,9 @@ st.set_page_config(
 )
 
 # Title and description
-st.title("👔 Clothing Brand Analysis - AI Assistant")
-st.markdown("Ask questions about your clothing inventory in natural language!")
+st.title("👔 StyleQuery AI")
+st.markdown("### Ask Your Fashion Inventory Anything")
+st.caption("Powered by Gemini 2.0 • LangChain • ChromaDB • MySQL")
 
 # Sidebar
 with st.sidebar:
