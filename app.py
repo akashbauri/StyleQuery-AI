@@ -7,7 +7,7 @@ from web_search import web_search_fallback
 
 # Page configuration
 st.set_page_config(
-    page_title="Clothing Brand Analysis",
+    page_title="StyleQuery AI",
     page_icon="👔",
     layout="wide"
 )
