@@ -38,6 +38,26 @@ class LLMHandler:
         scored_examples.sort(reverse=True, key=lambda x: x[0])
         return [ex[1] for ex in scored_examples[:top_k]]
     
+    def determine_viz_type(self, sql_query: str, question: str):
+        """Determine visualization type based on SQL query and question"""
+        sql_lower = sql_query.lower()
+        question_lower = question.lower()
+        
+        # Check for counting/single number queries
+        if 'count(' in sql_lower or 'sum(' in sql_lower or 'avg(' in sql_lower:
+            if 'group by' not in sql_lower:
+                return 'number'
+        
+        # Check for distribution/comparison queries
+        if 'group by' in sql_lower:
+            if any(word in question_lower for word in ['distribution', 'breakdown', 'by', 'per']):
+                return 'pie_chart'
+            else:
+                return 'bar_chart'
+        
+        # Default to table
+        return 'table'
+    
     def generate_sql(self, question: str):
         """Generate SQL query from natural language question"""
         try:
@@ -103,10 +123,13 @@ SQL:"""
             
             sql_query = sql_query.strip()
             
-            return sql_query
+            # Determine visualization type
+            viz_type = self.determine_viz_type(sql_query, question)
+            
+            return sql_query, viz_type
             
         except Exception as e:
             st.error(f"Error generating SQL: {str(e)}")
-            return None
+            return None, None
 
 llm_handler = LLMHandler()
