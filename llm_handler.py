@@ -1,6 +1,5 @@
 from langchain_groq import ChatGroq
-from langchain.prompts import PromptTemplate
-from langchain.chains import LLMChain
+from langchain_core.prompts import PromptTemplate
 from config import config
 from few_shot_prompts import few_shot_prompts
 import streamlit as st
@@ -89,13 +88,11 @@ SQL:"""
                 template=prompt_template
             )
             
-            # Create chain
-            chain = LLMChain(llm=self.llm, prompt=prompt)
             
-            # Generate SQL
-            response = chain.run(question=question)
-            sql_query = response.strip()
-            
+            # Generate SQL directly with prompt
+            formatted_prompt = prompt.format(question=question)
+            response = self.llm.invoke(formatted_prompt)
+            sql_query = response.content.strip()
             # Clean up the SQL query
             if sql_query.startswith('```sql'):
                 sql_query = sql_query[6:]
