@@ -90,7 +90,7 @@ SQL:"""
             
             
             # Generate SQL directly with prompt
-            formatted_prompt = prompt.format(question=question)
+                        formatted_prompt = prompt_template.format(question=question)
             response = self.llm.invoke(formatted_prompt)
             sql_query = response.content.strip()
             # Clean up the SQL query
