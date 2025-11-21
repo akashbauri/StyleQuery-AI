@@ -88,11 +88,11 @@ SQL:"""
                 template=prompt_template
             )
             
-            
             # Generate SQL directly with prompt
-                        formatted_prompt = prompt_template.format(question=question)
+            formatted_prompt = prompt.format(question=question)
             response = self.llm.invoke(formatted_prompt)
             sql_query = response.content.strip()
+            
             # Clean up the SQL query
             if sql_query.startswith('```sql'):
                 sql_query = sql_query[6:]
