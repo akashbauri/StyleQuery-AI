@@ -1,9 +1,8 @@
 streamlit
-google-generativeai
+groq
 langchain
-langchain-google-genai
+langchain-groq
 langchain-community
-chromadb
 pandas
 mysql-connector-python
 pymysql
