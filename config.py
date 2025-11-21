@@ -15,8 +15,8 @@ class Config:
         return os.getenv(key, default)
     
     @property
-    def GEMINI_API_KEY(self):
-        return self.get('GEMINI_API_KEY')
+    def GROQ_API_KEY(self):
+        return self.get('GROQ_API_KEY')
     
     @property
     def DB_HOST(self):
@@ -45,9 +45,5 @@ class Config:
     @property
     def TOP_K(self):
         return int(self.get('TOP_K', 3))
-    
-    @property
-    def MODEL_NAME(self):
-        return "gemini-2.0-flash-exp"
 
 config = Config()
